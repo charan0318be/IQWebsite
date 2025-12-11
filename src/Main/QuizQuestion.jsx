@@ -138,7 +138,7 @@ const QuizQuestion = () => {
               onClick={handleNext}
               disabled={!answers[q.id]}
             >
-              {currentIndex === questions.length - 1 ? "Finish & Pay ₹149" : "Next"}
+              {currentIndex === questions.length - 1 ? "Finish & Pay ₹10" : "Next"}
             </button>
           </div>
         </div>
