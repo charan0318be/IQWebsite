@@ -3,11 +3,19 @@ import axios from "axios";
 
 // IQ levels for display
 const iqLevels = [
-  { min: 0, max: 15, label: "Below Average" },
-  { min: 16, max: 25, label: "Average" },
-  { min: 26, max: 35, label: "Above Average" },
-  { min: 36, max: 50, label: "High IQ" },
+  { min: 130, max: 200, label: "Gifted / Very Superior" },
+  { min: 120, max: 129, label: "Superior" },
+  { min: 110, max: 119, label: "High Average" },
+  { min: 90, max: 109, label: "Average" },
+  { min: 80, max: 89, label: "Below Average" },
 ];
+
+function getIQClassification(score) {
+  for (let level of iqLevels) {
+    if (score >= level.min && score <= level.max) return level.label;
+  }
+  return "Unclassified";
+}
 
 const QuizQuestion = () => {
   const [questions, setQuestions] = useState([]);
@@ -154,42 +162,61 @@ const QuizQuestion = () => {
 
   return (
     <div className="max-w-2xl mx-auto p-5 space-y-4">
-      <h1 className="text-3xl font-bold text-center mb-4">Your IQ Score: {iqScore}</h1>
+      <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-xl text-center mb-6">
+  <h2 className="text-3xl font-bold mb-4">Quiz Completed!</h2>
 
-      <table className="w-full border-collapse border border-gray-300 mb-5 text-center">
-        <thead>
-          <tr>
-            <th className="border border-gray-300 px-3 py-2">Score Range</th>
-            <th className="border border-gray-300 px-3 py-2">IQ Label</th>
-          </tr>
-        </thead>
-        <tbody>
-          {iqLevels.map((lvl, idx) => (
-            <tr
-              key={idx}
-              className={
-                iqScore >= lvl.min && iqScore <= lvl.max ? "bg-green-100 font-semibold" : ""
-              }
-            >
-              <td className="border border-gray-300 px-2 py-1">{lvl.min} - {lvl.max}</td>
-              <td className="border border-gray-300 px-2 py-1">{lvl.label}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+  {/* Result Classification */}
+  <p className="text-xl mb-2">
+    Your IQ Classification: {getIQClassification(iqScore)}
+  </p>
 
-      <h2 className="text-xl font-semibold mb-2">Your Answers</h2>
-      {questions.map((q) => (
-        <div key={q.id} className="mb-3 p-3 border rounded bg-white shadow-sm">
-          <p className="font-semibold">{q.question}</p>
-          <p>
-            Your answer: <span className="font-medium">{answers[q.id]}</span>
-          </p>
-          <p>
-            Correct answer: <span className="font-medium">{q.answer}</span>
-          </p>
-        </div>
-      ))}
+  {/* Score Details */}
+  <p className="text-gray-600 mb-2">
+    You answered {
+      questions.filter(q => answers[q.id] === q.answer).length
+    } out of {questions.length} questions correctly.
+  </p>
+
+  <p className="text-gray-600">Your IQ Score: {iqScore}</p>
+</div>
+
+      <div className="bg-white p-6 rounded-2xl shadow-xl w-full max-w-xl mx-auto">
+                <h3 className="text-xl font-bold mb-4">IQ Classification Table</h3>
+    <table className="w-full border-collapse border border-gray-300 text-left">
+    <thead>
+      <tr className="bg-gray-200">
+        <th className="border border-gray-300 p-2">Classification</th>
+        <th className="border border-gray-300 p-2">IQ Range</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td className="border border-gray-300 p-2">Gifted / Very Superior</td>
+        <td className="border border-gray-300 p-2">130+</td>
+      </tr>
+      <tr>
+        <td className="border border-gray-300 p-2">Superior</td>
+        <td className="border border-gray-300 p-2">120–129</td>
+      </tr>
+      <tr>
+        <td className="border border-gray-300 p-2">High Average</td>
+        <td className="border border-gray-300 p-2">110–119</td>
+      </tr>
+      <tr>
+        <td className="border border-gray-300 p-2">Average</td>
+        <td className="border border-gray-300 p-2">90–109</td>
+      </tr>
+      <tr>
+        <td className="border border-gray-300 p-2">Below Average</td>
+        <td className="border border-gray-300 p-2">80–89</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+     
+     
     </div>
   );
 };
