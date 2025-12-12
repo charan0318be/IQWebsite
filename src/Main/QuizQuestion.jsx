@@ -59,7 +59,7 @@ const QuizQuestion = () => {
       console.log("Initiating payment...");
       const orderRes = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/create-order`,
-        { amount: 14900 }
+        { amount: 9900 }
       );
       console.log("Order response from backend:", orderRes.data);
 
@@ -67,7 +67,7 @@ const QuizQuestion = () => {
 
       const options = {
         key: key, // Use live key received from backend
-        amount: 14900,
+        amount: 9900,
         currency: "INR",
         name: "IQ Checker",
         description: "IQ Test Payment",
@@ -154,7 +154,7 @@ const QuizQuestion = () => {
         onClick={handleNext}
         disabled={!answers[q.id]}
       >
-        {currentIndex === questions.length - 1 ? "Finish & Pay ₹149" : "Next"}
+        {currentIndex === questions.length - 1 ? "Finish" : "Next"}
       </button>
     </div>
   </div>
@@ -171,7 +171,7 @@ const QuizQuestion = () => {
           className="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600"
           onClick={handlePayment}
         >
-          Pay ₹149
+          Pay ₹99
         </button>
       </div>
     );
