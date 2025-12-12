@@ -112,19 +112,20 @@ const QuizQuestion = () => {
           <p className="font-semibold mb-3">
             Q{currentIndex + 1}. {q.question}
           </p>
-          <div className="flex flex-col gap-2">
-            {q.options.map((opt, idx) => (
-              <button
-                key={idx}
-                className={`p-2 border border-[#e3e3e3] rounded hover:bg-blue-50 transition ${
-                  answers[q.id] === opt ? "bg-blue-100 border-blue-400" : "bg-white"
-                }`}
-                onClick={() => handleOptionSelect(opt)}
-              >
-                {opt}
-              </button>
-            ))}
-          </div>
+          <div className="grid grid-cols-2 gap-2">
+  {q.options.map((opt, idx) => (
+    <button
+      key={idx}
+      className={`p-2 rounded bg-blue-500 text-white hover:bg-blue-600 transition ${
+        answers[q.id] === opt ? "ring-2 ring-blue-300" : ""
+      }`}
+      onClick={() => handleOptionSelect(opt)}
+    >
+      {opt}
+    </button>
+  ))}
+</div>
+
           <div className="flex items-center justify-between mt-4">
   <button
     className="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
