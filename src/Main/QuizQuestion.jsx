@@ -111,7 +111,7 @@ const QuizQuestion = () => {
   <div className="p-6 bg-white rounded-xl shadow-xl space-y-4">
     {/* Header with image */}
     <div className="flex items-center gap-3">
-      <img src={image} alt="IQ Icon" className="w-10 h-10" />
+      <img src={image} alt="IQ Icon" className="w-18 h-18" />
       <h2 className="text-2xl font-bold">Test Your IQ</h2>
     </div>
 
