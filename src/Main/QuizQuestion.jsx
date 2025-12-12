@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import image from '../assets/IQ Checker -04.png'
 
 // IQ levels for display
 const iqLevels = [
@@ -106,50 +107,59 @@ const QuizQuestion = () => {
   if (!quizFinished) {
     const q = questions[currentIndex];
     return (
-      <div className="max-w-2xl mx-auto p-5 space-y-4">
-        <h2 className="text-2xl font-bold text-center mb-4">Test Your IQ</h2>
-        <div className="p-4 border border-[#e3e3e3]  rounded shadow-sm bg-white">
-          <p className="font-semibold mb-3">
-            Q{currentIndex + 1}. {q.question}
-          </p>
-          <div className="grid grid-cols-2 gap-2">
-  {q.options.map((opt, idx) => (
-    <button
-      key={idx}
-      className={`p-2 rounded bg-blue-500 text-white hover:bg-blue-600 transition ${
-        answers[q.id] === opt ? "ring-2 ring-blue-300" : ""
-      }`}
-      onClick={() => handleOptionSelect(opt)}
-    >
-      {opt}
-    </button>
-  ))}
+     <div className="max-w-2xl mx-auto p-5">
+  <div className="p-6 bg-white rounded-xl shadow-xl space-y-4">
+    {/* Header with image */}
+    <div className="flex items-center gap-3">
+      <img src={image} alt="IQ Icon" className="w-10 h-10" />
+      <h2 className="text-2xl font-bold">Test Your IQ</h2>
+    </div>
+
+    {/* Question */}
+    <p className="font-semibold mb-3">
+      Q{currentIndex + 1}. {q.question}
+    </p>
+
+    {/* Options */}
+    <div className="grid grid-cols-2 gap-2">
+      {q.options.map((opt, idx) => (
+        <button
+          key={idx}
+          className={`p-2 rounded bg-blue-500 text-white hover:bg-blue-600 transition ${
+            answers[q.id] === opt ? "ring-2 ring-blue-300" : ""
+          }`}
+          onClick={() => handleOptionSelect(opt)}
+        >
+          {opt}
+        </button>
+      ))}
+    </div>
+
+    {/* Navigation buttons */}
+    <div className="flex items-center justify-between mt-4">
+      <button
+        className="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
+        onClick={handlePrevious}
+        disabled={currentIndex === 0}
+      >
+        Previous
+      </button>
+
+      <span className="text-gray-700 font-medium">
+        Question {currentIndex + 1} of {questions.length}
+      </span>
+
+      <button
+        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
+        onClick={handleNext}
+        disabled={!answers[q.id]}
+      >
+        {currentIndex === questions.length - 1 ? "Finish & Pay ₹149" : "Next"}
+      </button>
+    </div>
+  </div>
 </div>
 
-          <div className="flex items-center justify-between mt-4">
-  <button
-    className="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
-    onClick={handlePrevious}
-    disabled={currentIndex === 0}
-  >
-    Previous
-  </button>
-
-  <span className="text-gray-700 font-medium">
-    Question {currentIndex + 1} of {questions.length}
-  </span>
-
-  <button
-    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
-    onClick={handleNext}
-    disabled={!answers[q.id]}
-  >
-    {currentIndex === questions.length - 1 ? "Finish & Pay ₹149" : "Next"}
-  </button>
-</div>
-
-        </div>
-      </div>
     );
   }
 
