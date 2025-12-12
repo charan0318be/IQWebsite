@@ -58,7 +58,7 @@ const QuizQuestion = () => {
       console.log("Initiating payment...");
       const orderRes = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/create-order`,
-        { amount: 1000 }
+        { amount: 14900 }
       );
       console.log("Order response from backend:", orderRes.data);
 
@@ -66,7 +66,7 @@ const QuizQuestion = () => {
 
       const options = {
         key: key, // Use live key received from backend
-        amount: 1000,
+        amount: 14900,
         currency: "INR",
         name: "IQ Checker",
         description: "IQ Test Payment",
@@ -108,7 +108,7 @@ const QuizQuestion = () => {
     return (
       <div className="max-w-2xl mx-auto p-5 space-y-4">
         <h2 className="text-2xl font-bold text-center mb-4">Test Your IQ</h2>
-        <div className="p-4 border rounded shadow-sm bg-white">
+        <div className="p-4 border border-[#e3e3e3]  rounded shadow-sm bg-white">
           <p className="font-semibold mb-3">
             Q{currentIndex + 1}. {q.question}
           </p>
@@ -116,7 +116,7 @@ const QuizQuestion = () => {
             {q.options.map((opt, idx) => (
               <button
                 key={idx}
-                className={`p-2 border rounded hover:bg-blue-50 transition ${
+                className={`p-2 border border-[#e3e3e3] rounded hover:bg-blue-50 transition ${
                   answers[q.id] === opt ? "bg-blue-100 border-blue-400" : "bg-white"
                 }`}
                 onClick={() => handleOptionSelect(opt)}
@@ -125,22 +125,28 @@ const QuizQuestion = () => {
               </button>
             ))}
           </div>
-          <div className="flex justify-between mt-4">
-            <button
-              className="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
-              onClick={handlePrevious}
-              disabled={currentIndex === 0}
-            >
-              Previous
-            </button>
-            <button
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
-              onClick={handleNext}
-              disabled={!answers[q.id]}
-            >
-              {currentIndex === questions.length - 1 ? "Finish & Pay ₹10" : "Next"}
-            </button>
-          </div>
+          <div className="flex items-center justify-between mt-4">
+  <button
+    className="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
+    onClick={handlePrevious}
+    disabled={currentIndex === 0}
+  >
+    Previous
+  </button>
+
+  <span className="text-gray-700 font-medium">
+    Question {currentIndex + 1} of {questions.length}
+  </span>
+
+  <button
+    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
+    onClick={handleNext}
+    disabled={!answers[q.id]}
+  >
+    {currentIndex === questions.length - 1 ? "Finish & Pay ₹149" : "Next"}
+  </button>
+</div>
+
         </div>
       </div>
     );
@@ -154,7 +160,7 @@ const QuizQuestion = () => {
           className="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600"
           onClick={handlePayment}
         >
-          Pay ₹10
+          Pay ₹149
         </button>
       </div>
     );
@@ -162,7 +168,7 @@ const QuizQuestion = () => {
 
   return (
     <div className="max-w-2xl mx-auto p-5 space-y-4">
-      <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-xl text-center mb-6">
+      <div className="bg-white p-8 rounded-2xl  w-full max-w-xl text-center mb-6">
   <h2 className="text-3xl font-bold mb-4">Quiz Completed!</h2>
 
   {/* Result Classification */}
