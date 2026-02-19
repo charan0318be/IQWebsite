@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import image from '../assets/IQ Checker -04.png'
 
-// IQ levels for display
+// 90
 const iqLevels = [
   { min: 130, max: 200, label: "Gifted / Very Superior" },
   { min: 120, max: 129, label: "Superior" },
